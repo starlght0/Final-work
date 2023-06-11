@@ -1,0 +1,126 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+void pravila();
+
+int main() {
+    
+    setlocale(0, "");
+    
+    string playerName;
+    
+int balance; // баланс 
+
+int stavka; // ставка
+
+int guess; // ваше число
+
+int dice; // число компьютера
+
+char choice; // для продолжения игры
+
+
+srand(time(0)); //установка в качестве базы текущее время.
+
+cout << "Казино РусскийРеп \n";
+
+pravila();
+
+cout << "Как вас зовут: ";
+
+getline(cin, playerName);
+
+cout << "\nсколько у вас денег?: $";
+
+cin >> balance;
+
+do {
+    system("cls");
+    
+    cout << "\nВаш баланс на данный момент составляет: " << balance << "$\n";
+    
+    do {
+        
+        cout << "Ну что," << playerName << ", введите вашу ставку: $";
+        
+        cin >> stavka;
+        
+        if (stavka > balance) {
+            
+            cout << "Ваш баланс меньше, чем ваша ставка!\n" << "\n";
+            
+        }
+    } while (stavka > balance);
+    
+    do {
+        
+        cout << "Какое число я загадал(от 1 до 5): ";
+        
+            cin >> guess;
+            
+        if (guess <= 0 || guess > 5)
+        
+            cout << "\nЧисло должно быть от 1 до 5\n" << "Введите еще раз: ";
+            
+    } while (guess <= 0 || guess > 5);
+    
+    dice = rand() % 5 + 1; //генератор чисел
+    
+    if(dice == guess) {
+        
+        cout << "\nВы выйграли!!! Вы получили:$" << stavka * 5; //удачная ставка
+        
+        balance = balance + stavka * 5;
+        
+    }
+    
+    else {
+        
+        cout << "вы проиграли. Ваш пройгрыш составил: $" << stavka << "\n"; //неудачная ставка
+        
+        balance = balance - stavka;
+        
+    }
+    
+    cout << "Число которое было загадано это " << dice << "\n";
+    
+    cout << "\n" << playerName << ", ваш баланс составляет $" << balance << "\n";
+    
+    if (balance == 0)
+    
+    {
+        cout << "У вас нет денег, чтобы продолжить игру ";
+        
+        break;
+    }
+    cout << "\nХотите сыграть снова(y/n)? ";
+    
+    cin >> choice;
+    
+} while (choice == 'Y' || choice == 'y');
+
+cout << "\nСпасибо за игру. Ваш баланс составляет: $ " << balance << "\n";
+ 
+return 0;
+
+}
+
+void pravila() //правила игры
+{
+    
+    system("cls");
+    
+    cout << "\nПравила казино:: \n";
+    
+    cout << "1. Назовите число от 1 до 5\n";
+    
+    cout << "2. При угадывании ставка увеличивается в 5 раз\n";
+    
+    cout << "3. Если не угадали, то ваша ставка вычитается от вашего баланса\n";
+    
+ 
+}
